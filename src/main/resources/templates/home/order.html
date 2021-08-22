@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{thyleafindex :: layout(~{::title},~{::.container})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div class = "container d-flex justify-content-center">
+<form id = "form" action="/home/order" method = "post">
+  <div class="form-group">
+    <label for="address">address</label>
+    <input type="text" class="form-control" name = "address" id="address" aria-describedby="address" placeholder="address">
+    <input type = "hidden" name = "listproduct" id = "listpro">
+  </div>
+  <button id = "button" type="button" class="btn btn-primary">Submit</button>
+</form><script type="text/javascript">
+$('#button').click(()=>{
+	$('#form').submit()
+})
+$('#listpro').val(localStorage.getItem("myCard"))
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{thyleafindex :: layout(~{::title},~{::.container})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>home</title>
+</head>
+<body>
+<div class = "container ">
+<div class = "row  d-flex justify-content-center">
+<div class="card col-4" style="width: 18rem;" th:each = "p : ${products.content}">
+  <img class="card-img-top img-fluid" th:src="@{|/images/${p.image}|}" alt="Card image cap">
+  <div class="card-body " >
+    <h5 class="card-title" th:text = "${p.name}"></h5>
+    <p class="card-text" th:text = "|${p.price}$|"></p>
+    <a th:href = "@{|/home/detail/${p.id}|}" class="btn btn-primary ">Show Detail</a>
+    <button class="btn btn-primary addToCard" th:productid = "${p.id}" th:price = "${p.price}" quantity="1" th:name = "${p.name}">Add To Card</button>
+  </div>
+</div>
+
+</div>
+<div class="row d-flex justify-content-center mt-5">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" th:if = "${products.hasPrevious()}">
+    <a class="page-link" th:if = "${categoryId==null}" th:href="@{'/home?page='+${products.number-1}}">Previous</a>
+    <a class="page-link" th:unless = "${categoryId==null}" th:href="@{|/home/${categoryId}|+'?page='+${products.number-1}}">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" th:text = "${products.number}+1"></a></li>
+    <li class="page-item" th:if = "${products.hasNext()}">
+    <a class="page-link" th:if = "${categoryId==null}" th:href="@{'/home?page='+${products.number+1}}">Next</a>
+    <a class="page-link" th:unless = "${categoryId==null}" th:href="@{|/home/${categoryId}|+'?page='+${products.number+1}}">Next</a>
+    </li>
+  </ul>
+</nav>
+</div>
+</div>
+
+
+</body>
+</html>

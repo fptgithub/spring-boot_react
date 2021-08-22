@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{thyleafindex :: layout(~{::title},~{::.container})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>login</title>
+</head>
+<body class = "container">
+<div class = " d-flex justify-content-center">
+<form id = "loginform">
+  <div class="form-group">
+    <label for="username">username</label>
+    <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="username">
+  </div>
+  <div class="form-group">
+    <label for="password">password</label>
+    <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="password">
+  </div>
+  <p id = "messager"></p>
+  <button type="button" class="btn btn-primary" id = "login">Submit</button>
+</form>
+</div>
+<script type="text/javascript">
+$('#login').click(()=>{
+	$.ajax({
+        url: 'http://localhost:8080/authenticate',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+        	setCookie("jwt","Bearer "+data.jwt);
+    		window.location = "http://localhost:8080/home";
+        },
+        error: function (error) {
+        	$("#messager").html('login fail!');
+        },
+        data: JSON.stringify({username:$('#username').val(),password:$('#password').val()})
+    });
+})
+function setCookie(cname, cvalue) {
+	  const d = new Date();
+	  d.setTime(d.getTime() +(1000*60*60*10));
+	  let expires = "expires="+ d.toUTCString();
+	  console.log(d.toUTCString())
+	  document.cookie = cname + "=" + cvalue + ";Path=/;" + expires ;
+	}
+</script>
+</body>
+</html>

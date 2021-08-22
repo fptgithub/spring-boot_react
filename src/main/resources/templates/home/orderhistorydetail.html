@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{thyleafindex :: layout(~{::title},~{::.container})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<table class="table container ">
+  <thead>
+    <tr>
+     <th scope="col">id</th>
+      <th scope="col">quantity</th>
+      <th scope="col">product</th>
+      <th scope="col">price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each = " o :  ${orders}">
+      <td th:text = "${o.id}"></td>
+      <td th:text = "${o.quantity}"></td>
+      <td th:text = "${o.product.name}"></td>
+      <td th:text = "${o.price}"></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

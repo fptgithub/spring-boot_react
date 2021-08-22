@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{thyleafindex :: layout(~{::title},~{::.container})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<table class="table container ">
+  <thead>
+    <tr>
+     <th scope="col">id</th>
+      <th scope="col">address</th>
+      <th scope="col">create date</th>
+      <th scope="col">order detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each = " o :  ${orders}">
+      <td th:text = "${o.id}"></td>
+      <td th:text = "${o.address}"></td>
+      <td th:text = "${o.createDate}"></td>
+      <td><a type="button" class="btn btn-primary" th:href = "@{|/home/orderhistory/${o.id}|}">detail</a></td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
